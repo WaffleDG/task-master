@@ -4,7 +4,7 @@ Many people struggle to plan out their day with all the tasks they have, especia
 
 Taskmaster is a tool which helps students keep track of and plan the work - or tasks - they need to do. It will (hopefully) connect to Canvas’ API to load tasks from classes.
 
--# For Mr. Stutler's Advanced CS Topics and Projects Sem 2 2026
+For Mr. Stutler's Advanced CS Topics and Projects Sem 2 2026
 
 ---
 
