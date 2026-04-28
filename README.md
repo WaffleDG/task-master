@@ -4,6 +4,8 @@ Many people struggle to plan out their day with all the tasks they have, especia
 
 Taskmaster is a tool which helps students keep track of and plan the work - or tasks - they need to do. It will (hopefully) connect to Canvas’ API to load tasks from classes.
 
+-# For Mr. Stutler's Advanced CS Topics and Projects Sem 2 2026
+
 ---
 
 ## 1. Introduction
@@ -26,8 +28,6 @@ Taskmaster is a tool which helps students keep track of and plan the work — or
 | Project Managers | Sections 1 & 2 — evaluate feasibility and scope |
 | Testers | Sections 3 & 5 — develop appropriate test cases |
 | Developers | Sections 2–5 — understand functionality and technical expectations |
- 
-All of these parties are stakeholders and will have access to this document to stay aligned.
  
 ### 1.4 Scope
  
