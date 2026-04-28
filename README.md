@@ -106,7 +106,7 @@ The system will communicate with the user through the GUI.
 ### 4.4 Software Interfaces
  
 - **Frontend:** GUI developed in Python
-- **Backend:** Canvas API keys to connect TaskMaster to Canvas
+- **Backend:** Canvas Developer Keys to connect TaskMaster to Canvas
 ---
  
 ## 5. Non-Functional Requirements
