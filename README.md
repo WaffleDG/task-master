@@ -8,6 +8,26 @@ For Mr. Stutler's Advanced CS Topics and Projects Sem 2 2026
 
 ---
 
+## Running the Desktop App
+
+TaskMaster is being built as a Python desktop application with PySide6. The GUI calls normal Python modules directly, so this project does not use Flask routes, templates, static web files, or a browser frontend.
+
+### Setup
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+### Start TaskMaster
+
+```bash
+.venv/bin/python Code/main.py
+```
+
+---
+ 
 ## 1. Introduction
  
 ### 1.1 Purpose
@@ -60,13 +80,13 @@ Taskmaster appeals to anyone who needs a way to plan out their day, but specific
  
 ### 2.4 Operating Environment
  
-The software runs in a Python IDE and requires internet access due to the integration of Flask.
+The software runs as a Python desktop application using PySide6. The core app does not require a browser, Flask server, or internet access.
  
 ### 2.5 Constraints
  
 - Time frame available to complete the project
 - Learning curve for implementing Python for the backend
-- Learning curve for implementing Flask for the frontend
+- Learning curve for implementing PySide6 for the desktop GUI
 ### 2.6 Assumptions and Dependencies
  
 - The project assumes that users need more organization and planning for the tasks they have at hand.
@@ -105,8 +125,9 @@ The system will communicate with the user through the GUI.
  
 ### 4.4 Software Interfaces
  
-- **Frontend:** GUI developed in Python
-- **Backend:** Canvas Developer Keys to connect TaskMaster to Canvas
+- **Frontend:** PySide6 desktop GUI developed in Python
+- **Backend:** Normal Python modules called directly by the GUI
+- **Optional Stretch Backend:** Canvas Developer Keys to connect TaskMaster to Canvas
 ---
  
 ## 5. Non-Functional Requirements
