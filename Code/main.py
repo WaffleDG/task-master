@@ -1,29 +1,26 @@
 """
    Riya Jonnala, Suraj Narra, Gregory Cohen
-   May 5, 2026
+   May 6, 2026
 
    Starts the TaskMaster desktop application and opens the main PySide6 window.
-   This file creates the home screen and navigation controls for the app.
+   This file connects the app screens and controls screen navigation.a
 """
 
 import sys
 from typing import cast
 
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import (
-    QApplication,
-    QLabel,
-    QMainWindow,
-    QPushButton,
-    QStackedWidget,
-    QVBoxLayout,
-    QWidget,
-)
+from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget
+
+# import from
+from enter_task_screen import build_enter_task_screen
+from home_screen import build_home_screen
+from schedule_screen import build_schedule_screen
+from whiteboard_screen import build_whiteboard_screen
 
 
 class TaskMasterWindow(QMainWindow):
     """
-       TaskMasterWindow() -> QMainWindow builds the main desktop window for TaskMaster.
+       TaskMasterWindow() builds the main desktop window for TaskMaster.
        returns a QMainWindow object that displays the TaskMaster GUI
     """
 
@@ -40,83 +37,71 @@ class TaskMasterWindow(QMainWindow):
         # QStackedWidget stores the screens that can be shown in the main window
         self.screen_stack = QStackedWidget()
 
-        # Add the home screen as the first visible screen
-        self.screen_stack.addWidget(self.build_home_screen())
+        # Build every screen before the user starts clicking navigation buttons
+        self.home_screen = build_home_screen(
+            self.show_enter_task_screen,
+            self.show_schedule_screen,
+            self.show_whiteboard_screen,
+        )
+        self.enter_task_screen = build_enter_task_screen(self.show_home_screen)
+        self.schedule_screen = build_schedule_screen(self.show_home_screen)
+        self.whiteboard_screen = build_whiteboard_screen(self.show_home_screen)
+
+        # Add the home screen as the first screen in the stack
+        self.screen_stack.addWidget(self.home_screen)
+
+        # Add the task entry screen to the screen stack
+        self.screen_stack.addWidget(self.enter_task_screen)
+
+        # Add the schedule screen to the screen stack
+        self.screen_stack.addWidget(self.schedule_screen)
+
+        # Add the whiteboard screen to the screen stack
+        self.screen_stack.addWidget(self.whiteboard_screen)
 
         # Put the screen stack in the center of the main window
         self.setCentralWidget(self.screen_stack)
 
-    def build_home_screen(self) -> QWidget:
+    def show_home_screen(self) -> None:
         """
-           build_home_screen() -> QWidget creates the first TaskMaster landing screen.
-           returns a QWidget that contains the home screen layout
+           show_home_screen() switches the app to the home screen.
+           returns None because it only changes the visible screen
         """
 
-        # Create the main widget that will hold all home screen content
-        home_screen = QWidget()
+        # Show the home screen in the screen stack
+        self.screen_stack.setCurrentWidget(self.home_screen)
 
-        # Use a vertical layout so the title, description, and buttons stack neatly
-        layout = QVBoxLayout()
+    def show_enter_task_screen(self) -> None:
+        """
+           show_enter_task_screen() switches the app to the task entry screen.
+           returns None because it only changes the visible screen
+        """
 
-        # Keep the home screen from looking cramped against the window edges
-        layout.setContentsMargins(80, 80, 80, 80)
+        # Show the task entry screen in the screen stack
+        self.screen_stack.setCurrentWidget(self.enter_task_screen)
 
-        # Add consistent spacing between widgets
-        layout.setSpacing(18)
+    def show_schedule_screen(self) -> None:
+        """
+           show_schedule_screen() switches the app to the schedule screen.
+           returns None because it only changes the visible screen
+        """
 
-        # Create the main app title
-        title_label = QLabel("TaskMaster")
+        # Show the schedule screen in the screen stack
+        self.screen_stack.setCurrentWidget(self.schedule_screen)
 
-        # Center the title so it feels like the main home screen heading
-        title_label.setAlignment(Qt.AlignCenter)
+    def show_whiteboard_screen(self) -> None:
+        """
+           show_whiteboard_screen() switches the app to the whiteboard screen.
+           returns None because it only changes the visible screen
+        """
 
-        # Give the title a larger font without needing a separate stylesheet file
-        title_label.setStyleSheet("font-size: 36px; font-weight: 700;")
-
-        # Create a short description of the application
-        subtitle_label = QLabel("Desktop student planner")
-
-        # Center the subtitle under the title
-        subtitle_label.setAlignment(Qt.AlignCenter)
-
-        # Make the subtitle readable but less visually important than the title
-        subtitle_label.setStyleSheet("font-size: 18px; color: #555555;")
-
-        # Create the navigation buttons for the main app sections
-        enter_tasks_button = QPushButton("Enter Tasks")
-        view_schedule_button = QPushButton("View Schedule")
-        view_whiteboard_button = QPushButton("View Whiteboard")
-
-        # Keep the buttons a consistent height for a cleaner first screen
-        for button in (enter_tasks_button, view_schedule_button, view_whiteboard_button):
-            # Set a readable button height for desktop use
-            button.setMinimumHeight(44)
-
-        # Add the title and subtitle to the screen
-        layout.addWidget(title_label)
-        layout.addWidget(subtitle_label)
-
-        # Add stretchable empty space so the buttons sit comfortably below the heading
-        layout.addStretch()
-
-        # Add the navigation buttons to the screen
-        layout.addWidget(enter_tasks_button)
-        layout.addWidget(view_schedule_button)
-        layout.addWidget(view_whiteboard_button)
-
-        # Add stretchable empty space below the buttons to balance the layout
-        layout.addStretch()
-
-        # Attach the completed layout to the home screen widget
-        home_screen.setLayout(layout)
-
-        # Return the finished screen so the main window can display it
-        return home_screen
+        # Show the whiteboard screen in the screen stack
+        self.screen_stack.setCurrentWidget(self.whiteboard_screen)
 
 
 def create_app() -> tuple[QApplication, TaskMasterWindow]:
     """
-       create_app() -> tuple[QApplication, TaskMasterWindow] creates the QApplication and main TaskMaster window.
+       create_app() creates the QApplication and main TaskMaster window.
        returns a tuple containing QApplication and TaskMasterWindow objects
     """
 
@@ -132,7 +117,7 @@ def create_app() -> tuple[QApplication, TaskMasterWindow]:
 
 def main() -> int:
     """
-       main() -> int starts TaskMaster.
+       main() starts TaskMaster.
        returns an int exit code that represents whether the app started successfully
     """
 
